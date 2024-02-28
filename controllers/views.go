@@ -12,8 +12,8 @@ func HomeHandler(c echo.Context) error {
 	return render(c, views.Home("Welcome"))
 }
 
-func ScanResultHandler(c echo.Context, result models.Result) error {
-	return render(c, views.ScanResult(result))
+func ScanResultHandler(c echo.Context, scanned models.Nmap, get models.Headers) error {
+	return render(c, views.ScanResult(scanned, get))
 }
 
 func ScansHandler(c echo.Context) error {

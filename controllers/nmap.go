@@ -10,8 +10,8 @@ import (
 	"github.com/Ullaakut/nmap/v3"
 )
 
-func scan(domain string) (models.Result, error) {
-	var complete models.Result
+func scan(domain string) (models.Nmap, error) {
+	var complete models.Nmap
 	complete.Url = domain
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
@@ -22,7 +22,7 @@ func scan(domain string) (models.Result, error) {
 	)
 
 	if err != nil {
-		return models.Result{}, err
+		return models.Nmap{}, err
 	}
 
 	result, warnings, err := scanner.Run()
@@ -30,7 +30,7 @@ func scan(domain string) (models.Result, error) {
 		log.Printf("finished run with warnings: %s\n", *warnings)
 	}
 	if err != nil {
-		return models.Result{}, err
+		return models.Nmap{}, err
 	}
 
 	for _, host := range result.Hosts {
@@ -51,12 +51,12 @@ func scan(domain string) (models.Result, error) {
 	return complete, nil
 }
 
-func runNmap(wg *sync.WaitGroup, channel chan models.Result, domain string) {
+func runNmap(wg *sync.WaitGroup, channel chan models.Nmap, domain string) {
 	defer wg.Done()
 	result, err := scan(domain)
 	if err != nil {
 		log.Printf("Error with headers: %v", err)
-		channel <- models.Result{}
+		channel <- models.Nmap{}
 	}
 	channel <- result
 }

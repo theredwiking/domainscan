@@ -17,11 +17,11 @@ func Domain(e *echo.Echo) {
 			return err
 		}
 
-		result, err:= domain.Start();
+		scanned, headers, err:= domain.Start();
 		if err != nil {
 			return err
 		}
 
-		return controllers.ScanResultHandler(c, result)
+		return controllers.ScanResultHandler(c, scanned, headers)
 	})
 }

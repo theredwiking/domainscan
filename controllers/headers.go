@@ -17,8 +17,8 @@ func headers(domain string) (models.Headers, error) {
 	}
 
 	result.Protocol = resp.Proto
-	result.ContentType = resp.Header["Content-Type"]
-	result.Server = resp.Header["Server"]
+	result.ContentType = resp.Header["Content-Type"][0]
+	result.Server = resp.Header["Server"][0]
 	
 	return result, nil	
 	/*body, err := io.ReadAll(resp.Body)

@@ -1,7 +1,7 @@
 package models
 
 type (
-	Result struct {
+	Nmap struct {
 		Url string `json:"domain"`
 		Ip string `json:"ip"`
 		Ports []Port `json:"ports"`

@@ -28,15 +28,32 @@ templ portTable(ports []models.Port) {
 	</table>
 }
 
-templ ScanResult(result models.Result) {
+templ ScanResult(scan models.Nmap, get models.Headers) {
 	<div class="card" style="margin-top: 20px;">
 		<div class="card-body">
-			<center><h3 class="card-title">Scan result</h3></center>
-			<p class="card-text">
-				Domain: {result.Url}<br/>
-				Ip: {result.Ip}
-			</p>
-			@portTable(result.Ports)
+			<center><h3 class="card-title">Scan results</h3></center>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Ip</th>
+						<th scope="col">Protocol</th>
+						<th scope="col">Content-type</th>
+						<th scope="col">Servers</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{scan.Ip}</td>
+						<td>{get.Protocol}</td>
+						<td>{get.ContentType}</td>
+						<td>{get.Server}</td>
+					</tr>
+				</tbody>
+			</table>
+			<center><h5 class="card-text">
+				This is the result of nmap scan
+			</h5></center>
+			@portTable(scan.Ports)
 		</div>
 	</div>
 }
