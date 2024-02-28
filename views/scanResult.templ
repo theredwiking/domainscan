@@ -1,0 +1,42 @@
+package views
+
+import (
+	"strconv"
+	"github.com/theredwiking/domainscan/models"
+)
+
+templ portTable(ports []models.Port) {
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Port</th>
+				<th scope="col">Protocol</th>
+				<th scope="col">State</th>
+				<th scope="col">Service</th>
+			</tr>
+		</thead>
+		<tbody>
+			for _, port := range ports {
+				<tr>
+					<td>{strconv.FormatUint(uint64(port.Port), 10)}</td>
+					<td>{port.Protocol}</td>
+					<td>{port.State}</td>
+					<td>{port.Service}</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+templ ScanResult(result models.Result) {
+	<div class="card" style="margin-top: 20px;">
+		<div class="card-body">
+			<center><h3 class="card-title">Scan result</h3></center>
+			<p class="card-text">
+				Domain: {result.Url}<br/>
+				Ip: {result.Ip}
+			</p>
+			@portTable(result.Ports)
+		</div>
+	</div>
+}

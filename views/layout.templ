@@ -1,0 +1,20 @@
+package views
+
+templ Layout(title string) {
+	<!doctype html>
+	<html lang="en" data-bs-core="modern" data-bs-theme="dark">
+		<head>
+			<meta charset="utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+			<title>{ title }</title>
+			<link href="/static/css/halfmoon.min.css" rel="stylesheet" />
+			<link href="/static/css/cores/halfmoon.modern.css" rel="stylesheet" />
+		</head>
+		<body class="text-bg-dark">
+			<script src="/static/js/bootstrap.bundle.min.js" />
+			<script src="/static/js/htmx.min.js" />
+			@navbar()
+			{ children... }
+		</body>
+	</html>
+}

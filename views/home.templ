@@ -1,0 +1,25 @@
+package views
+
+templ Home(title string) {
+	@Layout(title) {
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-8">
+					<div class="card text-bg-info" style="margin-top: 5px;">
+						<div class="card-body">
+							<center><h1 class="card-title">Welcome</h1></center>
+							<center><p class="card-text">
+								Domain-scan is a website to initial scan for security research.
+								This is a sparetime project for me to learn and harness me skills.
+							</p></center>
+						</div>
+					</div>
+					@search()
+					<div id="response"></div>
+				</div>
+				<div class="col-2"></div>
+			</div>
+		</div>
+	}
+}

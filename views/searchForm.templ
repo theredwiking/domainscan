@@ -1,0 +1,17 @@
+package views
+
+templ search() {
+	<div class="card" style="margin-top: 20px;">
+		<div class="card-body">
+			<center><h3 class="card-title">Scan a domain</h3></center>
+			<form hx-post="/api/scan" hx-target="#response">
+				<div class="mb-5">
+					<label class="form-label" for="domain">Domain address</label>
+					<input type="text" class="form-control" id="domain" name="domain" required placeholder="Domain" />
+				</div>
+				<button type="submit" class="btn btn-primary ms-auto">Search</button>
+				<img class="htmx-indicator" src="/static/spinning-circles.svg"/>
+			</form>
+		</div>
+	</div>
+}
