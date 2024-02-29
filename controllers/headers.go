@@ -1,11 +1,12 @@
 package controllers
 
 import (
-	"github.com/theredwiking/domainscan/models"
 	"fmt"
 	"log"
 	"net/http"
 	"sync"
+
+	"github.com/theredwiking/domainscan/models"
 )
 
 func headers(domain string) (models.Headers, error) {

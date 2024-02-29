@@ -1,17 +1,20 @@
 package main
 
 import (
-	"github.com/theredwiking/domainscan/routes"
-	"net/http"
+	sql "github.com/theredwiking/domainscan/database"
 	"embed"
-	"log"
-	"os"
 	"io/fs"
+	"log"
+	"net/http"
+	"os"
+
+	"github.com/theredwiking/domainscan/routes"
 
 	"github.com/labstack/echo/v4"
 )
 
 //go:embed assets/*
+//go:embed schema.sql
 var embededFiles embed.FS
 
 func getFileSystem(useOS bool) http.FileSystem {
@@ -32,6 +35,11 @@ func getFileSystem(useOS bool) http.FileSystem {
 func main() {
 	e := echo.New()
 
+	db, err := sql.Connect()
+	if err != nil {
+		log.Fatalf("Error with database: %v\n", err)
+	}
+
 	e.GET("/status", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Server is running")
 	})
@@ -42,7 +50,7 @@ func main() {
 	e.GET("/static/*", echo.WrapHandler(http.StripPrefix("/static/", assetHandler)))
 
 	routes.Views(e)
-	routes.Domain(e)
+	routes.Domain(e, db)
 
 	e.Logger.Fatal(e.Start(":3000"))
 }

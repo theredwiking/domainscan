@@ -1,13 +1,15 @@
 package routes
 
 import (
-	"github.com/theredwiking/domainscan/controllers"
+	"database/sql"
 	"log"
+
+	"github.com/theredwiking/domainscan/controllers"
 
 	"github.com/labstack/echo/v4"
 )
 
-func Domain(e *echo.Echo) {
+func Domain(e *echo.Echo, db *sql.DB) {
 	api := e.Group("/api")
 
 	api.POST("/scan", func(c echo.Context) error {
@@ -17,7 +19,7 @@ func Domain(e *echo.Echo) {
 			return err
 		}
 
-		scanned, headers, err:= domain.Start();
+		scanned, headers, err:= domain.Start(db);
 		if err != nil {
 			return err
 		}
