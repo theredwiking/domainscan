@@ -13,8 +13,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//go:embed assets/*
 //go:embed schema.sql
+//go:embed assets/*
 var embededFiles embed.FS
 
 func getFileSystem(useOS bool) http.FileSystem {

@@ -22,3 +22,6 @@ go.work
 
 # Remove folder from using fresh
 tmp
+
+# Remove directory containing build
+dist
