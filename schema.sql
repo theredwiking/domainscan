@@ -22,6 +22,6 @@ CREATE TABLE domainNmap(
 	state TEXT,
 	FOREIGN KEY (domainId) REFERENCES domain(id),
 	FOREIGN KEY (nmapId) REFERENCES nmap(id)
-)
+);
 
 CREATE INDEX idx_domain_id ON domainNmap (domainId);

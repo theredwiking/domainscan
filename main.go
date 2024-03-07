@@ -13,8 +13,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//go:embed schema.sql
-//go:embed assets/*
+//go:embed schema.sql assets/*
 var embededFiles embed.FS
 
 func getFileSystem(useOS bool) http.FileSystem {
@@ -34,7 +33,8 @@ func getFileSystem(useOS bool) http.FileSystem {
 
 func main() {
 	e := echo.New()
-
+	
+	sql.Embedded = embededFiles
 	db, err := sql.Connect()
 	if err != nil {
 		log.Fatalf("Error with database: %v\n", err)

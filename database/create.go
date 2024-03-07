@@ -2,11 +2,12 @@ package database
 
 import (
 	"database/sql"
-	"os"
+	"embed"
 )
 
+var Embedded embed.FS
 func create(db *sql.DB) error {
-	sql, err := os.ReadFile("./schema.sql")
+	sql, err := Embedded.ReadFile("schema.sql")
 
 	if err != nil {
 		return err
