@@ -27,4 +27,7 @@ tmp
 dist
 
 # Ignore script for running test container
-container
+docker.sh
+
+# Ignores sqlite3 database files
+*.db*
