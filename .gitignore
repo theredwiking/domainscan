@@ -25,3 +25,6 @@ tmp
 
 # Remove directory containing build
 dist
+
+# Ignore script for running test container
+container

@@ -12,8 +12,8 @@ FROM ubuntu:24.04 AS server
 
 WORKDIR /usr/src/app
 
-RUN apt update && apt install nmap -y
+RUN apt update && apt install nmap ca-certificates -y
 
 COPY --from=builder /usr/src/domainscan/dist .
 
-#CMD [ "app" ]
+CMD [ "./app" ]
