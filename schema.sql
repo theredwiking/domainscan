@@ -3,6 +3,7 @@ CREATE TABLE domain(
 	name TEXT,
 	ip TEXT,
 	protocol TEXT,
+	contentType TEXT,
 	server TEXT
 );
 
