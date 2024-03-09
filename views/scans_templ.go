@@ -10,7 +10,9 @@ import "context"
 import "io"
 import "bytes"
 
-func Scans(title string) templ.Component {
+import "github.com/theredwiking/domainscan/models"
+
+func Scans(title string, results []models.Combined) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -29,7 +31,17 @@ func Scans(title string) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"container-fluid\"><div class=\"row\"><div class=\"col-2\"></div><div class=\"col-8\"><div class=\"card text-bg-info\" style=\"margin-top: 5px;\"><div class=\"card-body\"><center><h1 class=\"card-title\">Previous scans</h1></center> <center><p class=\"card-text\">Contains results from previous scans</p></center></div></div></div><div class=\"col-2\"></div></div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"container-fluid\"><div class=\"row\"><div class=\"col-2\"></div><div class=\"col-8\"><div class=\"card text-bg-info\" style=\"margin-top: 5px;\"><div class=\"card-body\"><center><h1 class=\"card-title\">Previous scans</h1></center> <center><p class=\"card-text\">Contains results from previous scans</p></center></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			for _, result := range results {
+				templ_7745c5c3_Err = ScanResult(result.Scans, result.Headers).Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"col-2\"></div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

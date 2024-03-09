@@ -49,7 +49,7 @@ func main() {
 	e.GET("/", echo.WrapHandler(assetHandler))
 	e.GET("/static/*", echo.WrapHandler(http.StripPrefix("/static/", assetHandler)))
 
-	routes.Views(e)
+	routes.Views(e, db)
 	routes.Domain(e, db)
 
 	e.Logger.Fatal(e.Start(":3000"))

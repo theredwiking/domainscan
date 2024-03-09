@@ -52,6 +52,30 @@ func (d Domain) Start(db * sql.DB) (models.Nmap, models.Headers, error) {
 
 }
 
+func DomainResults(db *sql.DB) ([]models.Combined ,error) {
+	var results []models.Combined
+
+	rows, err := db.Query("SELECT id, ip, protocol, contentType, server FROM domain")
+	if err != nil {
+		return results, err
+	}
+
+	for rows.Next() {
+		var ip string
+		var header models.Headers
+
+		if err := rows.Scan(&header.Id, &ip, &header.Protocol, &header.ContentType, &header.Server); err != nil {
+			return results, err
+		}
+		scan := fromDb(db, header.Id)
+		scan.Ip = ip
+		combined := models.Combined{Headers: header, Scans: scan}
+		results = append(results, combined)
+	}
+
+	return results, nil
+}
+
 func insertingDB(db *sql.DB, domain string, headers models.Headers, scan models.Nmap) {
 	domainId := insertDomainDB(db, domain, headers)
 	insertPortsDB(db, scan, domainId)
